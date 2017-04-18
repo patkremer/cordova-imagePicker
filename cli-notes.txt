@@ -1,0 +1,6 @@
+plugman install --platform ios --project platforms/ios --plugin /Development/cordova-imagePicker --plugins_dir plugins --variable PHOTO_LIBRARY_USAGE_DESCRIPTION="Intutitive Inspections"
+
+plugman uninstall --platform ios --project platforms/ios --plugin /Development/cordova-imagePicker --plugins_dir plugins --variable PHOTO_LIBRARY_USAGE_DESCRIPTION="Intutitive Inspections"
+
+
+use the commands above in the Intutitive Inspections project 
