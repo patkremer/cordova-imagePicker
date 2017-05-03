@@ -27,10 +27,10 @@
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellTapped:)];
         [self addGestureRecognizer:tapRecognizer];
         
-        NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithCapacity:4];
+        NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithCapacity:5];
         self.imageViewArray = mutableArray;
         
-        NSMutableArray *overlayArray = [[NSMutableArray alloc] initWithCapacity:4];
+        NSMutableArray *overlayArray = [[NSMutableArray alloc] initWithCapacity:5];
         self.overlayViewArray = overlayArray;
 	}
 	return self;
@@ -75,10 +75,10 @@
 
 - (void)cellTapped:(UITapGestureRecognizer *)tapRecognizer
 {
-    int width = 150;
+    float width = 125;
     CGPoint point = [tapRecognizer locationInView:self];
-    CGFloat totalWidth = self.rowAssets.count * width + (self.rowAssets.count - 1) * 4;
-    CGFloat startX = (self.bounds.size.width - totalWidth) / 2;
+    CGFloat totalWidth = self.rowAssets.count * width + (self.rowAssets.count - 1) * 5;
+    CGFloat startX = (self.bounds.size.width - totalWidth) / 5;
     
 	CGRect frame = CGRectMake(startX, 2, width, width);
 	
@@ -96,9 +96,9 @@
 
 - (void)layoutSubviews
 {    
-    int width = 150;
-    CGFloat totalWidth = self.rowAssets.count * width + (self.rowAssets.count - 1) * 4;
-    CGFloat startX = (self.bounds.size.width - totalWidth) / 2;
+    float width = 125;
+    CGFloat totalWidth = self.rowAssets.count * width + (self.rowAssets.count - 1) * 5;
+    CGFloat startX = (self.bounds.size.width - totalWidth) / 5;
     
 	CGRect frame = CGRectMake(startX, 2, width, width);
 	

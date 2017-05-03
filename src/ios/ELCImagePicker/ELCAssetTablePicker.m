@@ -26,7 +26,7 @@
     if (self) {
         //Sets a reasonable default bigger then 0 for columns
         //So that we don't have a divide by 0 scenario
-        self.columns = 3;
+        self.columns = 5;
     }
     return self;
 }
@@ -53,7 +53,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.columns = self.view.bounds.size.width / 160;
+    self.columns = self.view.bounds.size.width / 125;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -64,7 +64,7 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    self.columns = self.view.bounds.size.width / 160;
+    self.columns = self.view.bounds.size.width / 125;
     [self.tableView reloadData];
 }
 
@@ -95,8 +95,11 @@
          }];
 
         dispatch_sync(dispatch_get_main_queue(), ^{
+            self.columns = self.view.bounds.size.width / 125;
+            
             [self.tableView reloadData];
             // scroll to bottom
+            
             long section = [self numberOfSectionsInTableView:self.tableView] - 1;
             long row = [self tableView:self.tableView numberOfRowsInSection:section] - 1;
             if (section >= 0 && row >= 0) {
@@ -106,7 +109,6 @@
                                               atScrollPosition:UITableViewScrollPositionBottom
                                                       animated:NO];
             }
-            
             [self.navigationItem setTitle:self.singleSelection ? @"Pick Photo" : @"Pick Photos"];
         });
     }
@@ -166,7 +168,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (self.columns <= 0) { //Sometimes called before we know how many columns we have
-        self.columns = 3;
+        self.columns = 5;
     }
     NSInteger numRows = ceil([self.elcAssets count] / (float)self.columns);
     return numRows;
@@ -197,7 +199,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 180;
+	return 129;
 }
 
 - (int)totalSelectedAssets
