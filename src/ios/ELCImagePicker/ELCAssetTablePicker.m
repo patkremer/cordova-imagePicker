@@ -13,7 +13,7 @@
 @interface ELCAssetTablePicker ()
 
 @property (nonatomic, assign) int columns;
-
+@property (nonatomic, assign) int thumbWidth;
 @end
 
 @implementation ELCAssetTablePicker
@@ -26,7 +26,7 @@
     if (self) {
         //Sets a reasonable default bigger then 0 for columns
         //So that we don't have a divide by 0 scenario
-        self.columns = 5;
+        self.columns = 4;
     }
     return self;
 }
@@ -53,7 +53,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.columns = self.view.bounds.size.width / 125;
+    self.thumbWidth = self.view.bounds.size.width / 4;
+    self.columns = self.view.bounds.size.width / self.thumbWidth;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -63,8 +64,10 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    self.columns = self.view.bounds.size.width / 125;
+    self.thumbWidth = self.view.bounds.size.width / 4;
+    self.columns = self.view.bounds.size.width / self.thumbWidth;
     [self.tableView reloadData];
 }
 
@@ -95,7 +98,8 @@
          }];
 
         dispatch_sync(dispatch_get_main_queue(), ^{
-            self.columns = self.view.bounds.size.width / 125;
+            self.thumbWidth = self.view.bounds.size.width / 4;
+            self.columns = self.view.bounds.size.width / self.thumbWidth;
             
             [self.tableView reloadData];
             // scroll to bottom
@@ -168,7 +172,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (self.columns <= 0) { //Sometimes called before we know how many columns we have
-        self.columns = 5;
+        self.columns = 4;
     }
     NSInteger numRows = ceil([self.elcAssets count] / (float)self.columns);
     return numRows;
@@ -199,7 +203,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 129;
+	return (self.view.bounds.size.width / 4) + 4;
 }
 
 - (int)totalSelectedAssets
